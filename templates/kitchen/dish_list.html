@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Our dishes:</h1>
+
+  <form action="" method="get" class="row g-3 align-items-center">
+  <div>
+    <span class="list-inline-item">{{ search_form_dishes|crispy }}</span>
+    <input type="submit" value="🔍" class="list-inline-item">
+  </div>
+  </form>
+
+  <h2>You can create new dish - <a href="{% url 'kitchen:dishes-create' %}" class="btn create_button bg-gradient rounded-pill">Create</a></h2>
+  {% if dish_list %}
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">name</th>
+          <th scope="col">description</th>
+          <th scope="col">price</th>
+          <th scope="col">dish_type</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+        {% for dish in dish_list %}
+      <tbody>
+        <tr>
+          <th scope="row"><a href="{% url 'kitchen:dishes-detail' pk=dish.id %}">{{ dish.id }}</a></th>
+          <td>{{ dish.name }}</td>
+          <td>{{ dish.description }}</td>
+          <td>{{ dish.price }}$</td>
+          <td>{{ dish.dish_type }}</td>
+          <td><a href="{% url 'kitchen:dishes-update' pk=dish.id %}" class="btn update_button bg-gradient rounded-pill">Update</a></td>
+          <td><a href="{% url 'kitchen:dishes-delete' pk=dish.id %}" class="btn delete_button bg-gradient rounded-pill">Delete</a></td>
+      </tbody>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>We don't have any dish now :(</p>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ cook.username }}
+    <div class="float-end">
+      {% if cook.id == user.id %}
+        <a href="{% url 'kitchen:cooks-delete' pk=cook.id %}" class="btn delete_button bg-gradient rounded-pill">Delete</a>
+      {% endif %}
+    </div>
+  </h1>
+
+  <hr>
+  <h2>Information about cook:</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">username</th>
+        <th scope="col">years_of_experience</th>
+        <th scope="col">first_name</th>
+        <th scope="col">last_name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="col">{{ cook.id }}</th>
+        <td>{{ cook.username }}</td>
+        <td>{{ cook.years_of_experience }}</td>
+        <td>{{ cook.description }}</td>
+        <td>{{ cook.first_name }}</td>
+        <td>{{ cook.last_name }}</td>
+    </tbody>
+  </table>
+  <br>
+  <h2>Information about dishes that he can cook:</h2>
+  {% if cook.dishes.all %}
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">description</th>
+        <th scope="col">price</th>
+        <th scope="col">dish_type</th>
+      </tr>
+    </thead>
+    {% for dish in cook.dishes.all %}
+    <tbody>
+      <tr>
+        <th scope="row"><a href="{% url 'kitchen:dishes-detail' pk=dish.id %}">{{ dish.id }}</a></th>
+        <td>{{ dish.name }}</td>
+        <td>{{ dish.description }}</td>
+        <td>{{ dish.price }}$</td>
+        <td>{{ dish.dish_type }}</td>
+    </tbody>
+    {% endfor %}
+  </table>
+
+  {% else %}
+    <p>This is a beginner, he did not have time to tell what dishes he can cook</p>
+  {% endif %}
+
+
+{% endblock %}

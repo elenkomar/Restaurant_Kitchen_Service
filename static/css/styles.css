@@ -1,0 +1,96 @@
+html {
+    font-size: 16px;
+}
+
+body{
+    background-image: url("../images/food1.jpg");
+    backdrop-filter: blur(5px);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100vh;
+}
+
+.main_content {
+    height:100vh;
+    border-radius: 10px;
+    bottom: 0;
+    margin-left: 250px;
+    margin-right: 250px;
+    background-image: url('../images/alu-gloss.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow-y: scroll;
+}
+
+.main_content::-webkit-scrollbar {
+  display: none;
+}
+
+.bg-header {
+    background-image: url('../images/alu-gloss.jpg');
+}
+
+.custom_button {
+    background-color: lightgray;
+    height: 50px;
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 5px;
+    border: black solid 2px;
+    font-size: 20px;
+}
+
+
+.update_button {
+    background-color: #E9E9CF;
+    height: 35px;
+    width: 100px;
+    border: black solid 2px;
+    font-size: 16px;
+    text-align: center;
+    padding: 0;
+}
+
+.delete_button {
+    background-color: #E9CFD4;
+    height: 35px;
+    width: 100px;
+    border: black solid 2px;
+    font-size: 16px;
+    text-align: center;
+    padding: 0;
+}
+
+
+.create_button {
+    background-color: #CFE9D7;
+    height: 35px;
+    width: 100px;
+    border: black solid 2px;
+    font-size: 16px;
+    text-align: center;
+    padding: 0;
+}
+
+.active_pagination {
+    background-color: lightgray;
+    color: black;
+}
+
+.pagination_link {
+    color: black;
+}
+
+.bg-login {
+    background-color: #EEEEEE;
+    border: black solid 2px;
+    width: 30%;
+}
+
+.custom_button_delete_confirm {
+    height: 40px;
+    width: 125px;
+    text-align: center;
+}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Our dish types:</h1>
+  <form action="" method="get" class="row g-3 align-items-center">
+  <div>
+    <span class="list-inline-item">{{ search_form_dish_types|crispy }}</span>
+    <input type="submit" value="🔍" class="list-inline-item">
+  </div>
+  </form>
+  <h2>You can create your dish type - <a href="{% url 'kitchen:dish-type-create' %}" class="btn create_button bg-gradient rounded-pill">Create</a></h2>
+  {% if dish_type_list %}
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">name</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+        {% for dish_type in dish_type_list %}
+      <tbody>
+        <tr>
+          <th scope="row">{{ dish_type.id }}</th>
+          <td>{{ dish_type.name }}</td>
+          <td><a href="{% url 'kitchen:dish-type-update' pk=dish_type.id %}" class="btn update_button bg-gradient rounded-pill">Update</a></td>
+          <td><a href="{% url 'kitchen:dish-type-delete' pk=dish_type.id %}" class="btn delete_button bg-gradient rounded-pill">Delete</a></td>
+      </tbody>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>We don't have any dish types now :(</p>
+  {% endif %}
+{% endblock %}

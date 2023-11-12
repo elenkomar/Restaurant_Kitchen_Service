@@ -1,0 +1,18 @@
+<div class="container bg-header bg-opacity-25 rounded-pill">
+<div class="row py-7 text-md-center">
+  <div class="navbar-brand font-weight-bolder">
+    <a href="{% url 'kitchen:index' %}" class="btn custom_button bg-gradient bg-opacity-25 rounded-pill float-start home_button">Home</a>
+    <a href="{% url 'kitchen:dish-type-list' %}" class="btn custom_button bg-gradient bg-opacity-25 rounded-pill">All dish types</a>
+    <a href="{% url 'kitchen:dishes-list' %}" class="btn custom_button bg-gradient bg-opacity-50 rounded-pill">All dishes</a>
+    <a href="{% url 'kitchen:cooks-list' %}" class="btn custom_button bg-gradient bg-opacity-25 rounded-pill">All cooks</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}" class="btn custom_button bg-gradient bg-warning rounded-pill float-end">Logout</a>
+      <h4 class="d-inline text-center float-end mt-3">{{ user.username }}&nbsp;</h4>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn custom_button bg-gradient bg-success rounded-pill float-end">Log in</a>
+    {% endif %}
+
+  </div>
+</div>
+</div>
+<hr>

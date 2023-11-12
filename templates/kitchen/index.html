@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">Welcome, to our manage system!</h1>
+  <br>
+  <p class="fs-4">
+    Our kitchen boasts a team of highly skilled chefs, each bringing years of expertise and professionalism to their craft. Our diverse menu caters to a variety of tastes and preferences, ensuring a culinary experience that satisfies every palate.
+  </p>
+
+  <p class="h2">
+    We have:
+  </p>
+  <ul class="fs-4">
+    <li>{{ num_dish_types }} dish types</li>
+    <li>{{ num_dishes }} dishes</li>
+    <li>{{ num_cooks }} professional cooks</li>
+  </ul>
+  <br>
+  <p class="h4 text-center">
+    <strong>
+      You visit this page {{ num_visits }} time{% if num_visits > 1 %}s{% endif %}
+    </strong>
+
+  </p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Are you sure you want to delete {{ dishtype.name }}?</h1>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="ms-3">
+      <input type="submit" value="Yes, I am sure" class="btn delete_button rounded-2 custom_button_delete_confirm">
+      <a href="{% url 'kitchen:dish-type-list' %}" class="btn create_button rounded-2 ms-2 pt-1 custom_button_delete_confirm">Cancel</a>
+    </div>
+
+  </form>
+{% endblock %}

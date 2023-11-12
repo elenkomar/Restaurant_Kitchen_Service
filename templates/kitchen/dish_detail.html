@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ dish.name }}
+    <div class="float-end">
+      <a href="{% url 'kitchen:dishes-update' pk=dish.id %}" class="btn update_button bg-gradient rounded-pill">Update</a>
+      <a href="{% url 'kitchen:dishes-delete' pk=dish.id %}" class="btn delete_button bg-gradient rounded-pill">Delete</a>
+    </div>
+  </h1>
+
+  <hr>
+  <h2>Information about dish:</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">description</th>
+        <th scope="col">price</th>
+        <th scope="col">dish_type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ dish.id }}</th>
+        <td>{{ dish.name }}</td>
+        <td>{{ dish.description }}</td>
+        <td>{{ dish.price }}$</td>
+        <td>{{ dish.dish_type }}</td>
+    </tbody>
+  </table>
+  <br>
+  <h2>Information about cooks who know how to cook it:</h2>
+  {% if dish.cooks.all %}
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">username</th>
+        <th scope="col">years_of_experience</th>
+        <th scope="col">first_name</th>
+        <th scope="col">last_name</th>
+      </tr>
+    </thead>
+    {% for cook in dish.cooks.all %}
+    <tbody>
+      <tr>
+        <th scope="row"><a href="{% url 'kitchen:cooks-detail' pk=cook.id %}">{{ cook.id }}</a></th>
+        <td>{{ cook.username }}</td>
+        <td>{{ cook.years_of_experience }}</td>
+        <td>{{ cook.first_name }}</td>
+        <td>{{ cook.last_name }}</td>
+    </tbody>
+    {% endfor %}
+  </table>
+
+  {% else %}
+    <p>It's very difficult, no one knows how to do it :(</p>
+  {% endif %}
+
+    <hr>
+  {% if user in dish.cooks.all %}
+    <a href="{% url 'kitchen:toggle-dish-assign' pk=dish.id %}" class="btn btn-danger rounded-pill">Delete me from this dish</a>
+
+  {% else %}
+    <a href="{% url 'kitchen:toggle-dish-assign' pk=dish.id %}" class="btn btn-success rounded-pill">Assign me to this dish</a>
+  {% endif %}
+
+
+{% endblock %}

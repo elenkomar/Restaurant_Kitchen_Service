@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Our cooks:</h1>
+  <form action="" method="get" class="row g-3 align-items-center">
+  <div>
+    <span class="list-inline-item">{{ search_form_cooks|crispy }}</span>
+    <input type="submit" value="🔍" class="list-inline-item">
+  </div>
+  </form>
+  <h2>You can create new cook - <a href="{% url 'kitchen:cooks-create' %}" class="btn create_button bg-gradient rounded-pill">Create</a></h2>
+  {% if cook_list %}
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">username</th>
+          <th scope="col">years_of_experience</th>
+          <th scope="col">first_name</th>
+          <th scope="col">last_name</th>
+        </tr>
+      </thead>
+        {% for cook in cook_list %}
+      <tbody>
+        <tr>
+          <th scope="row"><a href="{% url 'kitchen:cooks-detail' pk=cook.id %}">{{ cook.id }}</a></th>
+          <td>{{ cook.username }}</td>
+          <td>{{ cook.years_of_experience }}</td>
+          <td>{{ cook.first_name }}</td>
+          <td>{{ cook.last_name }}</td>
+      </tbody>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>We don't have any cooks now :(</p>
+  {% endif %}
+
+{% endblock %}
