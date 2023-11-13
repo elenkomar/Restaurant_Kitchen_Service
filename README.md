@@ -4,6 +4,9 @@ A Django project to oversee restaurant operations and enhance chef communication
 
 **Check it out!**
 -----------------------------------
+
+**[Link to site](https://kitchen-service-portfolio.onrender.com)**
+
 Your user:
 
 test_user - Login
