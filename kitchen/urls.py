@@ -14,7 +14,7 @@ from kitchen.views import (
     DishDeleteView,
     DishTypeCreateView,
     DishTypeUpdateView,
-    DishTypeDeleteView, toggle_assign_to_dish,
+    DishTypeDeleteView, toggle_assign_to_dish, ToggleAssignToDishView,
 )
 
 urlpatterns = [
@@ -60,6 +60,7 @@ urlpatterns = [
         CookDeleteView.as_view(),
         name="cooks-delete"
     ),
+    path('toggle_assign_to_dish/<int:pk>/', ToggleAssignToDishView.as_view(), name='toggle_assign_to_dish'),
 ]
 
 app_name = "kitchen"

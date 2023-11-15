@@ -2,9 +2,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views import generic
+from django.utils.decorators import method_decorator
+from django.views import generic, View
 
 from kitchen.models import Dish, DishType, Cook
 from kitchen.forms import (
@@ -161,16 +162,18 @@ class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("kitchen:cooks-list")
 
 
-@login_required
-def toggle_assign_to_dish(request, pk):
-    user = get_user_model().objects.get(id=request.user.id)
-    dish = Dish.objects.get(pk=pk)
+@method_decorator(login_required, name='dispatch')
+class ToggleAssignToDishView(View):
+    def get(self, request, pk):
+        user = get_user_model().objects.get(id=request.user.id)
+        dish = get_object_or_404(Dish, pk=pk)
 
-    if user in dish.cooks.all():
-        dish.cooks.remove(user)
-    else:
-        dish.cooks.add(user)
-    return HttpResponseRedirect(reverse_lazy(
-        "kitchen:dishes-detail",
-        args=[pk])
-    )
+        if user in dish.cooks.all():
+            dish.cooks.remove(user)
+        else:
+            dish.cooks.add(user)
+
+        return HttpResponseRedirect(reverse_lazy(
+            "kitchen:dishes-detail",
+            args=[pk])
+        )
