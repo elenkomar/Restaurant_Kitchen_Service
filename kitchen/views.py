@@ -162,16 +162,16 @@ class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("kitchen:cooks-list")
 
 
-@method_decorator(login_required, name='dispatch')
-class ToggleAssignToDishView(View):
-    def get(self, request, pk):
-        user = get_user_model().objects.get(id=request.user.id)
-        dish = get_object_or_404(Dish, pk=pk)
+class ToggleAssignToDishView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+        cook = get_object_or_404(Cook, id=request.user.id)
+        dish = get_object_or_404(Dish, id=pk)
 
-        if user in dish.cooks.all():
-            dish.cooks.remove(user)
+        if dish in cook.dishes.all():
+            cook.dishes.remove(dish)
         else:
-            dish.cooks.add(user)
+            cook.dishes.add(dish)
 
         return HttpResponseRedirect(reverse_lazy(
             "kitchen:dishes-detail",
