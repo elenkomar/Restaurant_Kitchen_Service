@@ -17,22 +17,25 @@ from kitchen.forms import (
 )
 
 
-@login_required
-def index(request):
-    num_dishes = Dish.objects.count()
-    num_cooks = get_user_model().objects.count()
-    num_dish_types = DishType.objects.count()
-    num_visits = request.session.get("visit_count", 1)
-    request.session["visit_count"] = num_visits + 1
+@method_decorator(login_required, name="dispatch")
+class IndexView(generic.TemplateView):
+    template_name = "kitchen/index.html"
 
-    context = {
-        "num_dishes": num_dishes,
-        "num_cooks": num_cooks,
-        "num_dish_types": num_dish_types,
-        "num_visits": num_visits,
-    }
+    def get_context_data(self, **kwargs):
+        num_dishes = Dish.objects.count()
+        num_cooks = get_user_model().objects.count()
+        num_dish_types = DishType.objects.count()
+        num_visits = self.request.session.get("visit_count", 1)
+        self.request.session["visit_count"] = num_visits + 1
 
-    return render(request, "kitchen/index.html", context)
+        context = {
+            "num_dishes": num_dishes,
+            "num_cooks": num_cooks,
+            "num_dish_types": num_dish_types,
+            "num_visits": num_visits,
+        }
+
+        return context
 
 
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
